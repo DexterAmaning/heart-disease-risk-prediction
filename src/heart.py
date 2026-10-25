@@ -49,7 +49,7 @@ def load_cleveland(path: str | Path) -> pd.DataFrame:
 def make_preprocessor() -> ColumnTransformer:
     return ColumnTransformer([
         ("num", Pipeline([("impute", SimpleImputer(strategy="median")), ("scale", StandardScaler())]), NUMERIC),
-        ("bin", "passthrough", BINARY),
+        ("bin", SimpleImputer(strategy="most_frequent"), BINARY),
         ("cat", Pipeline([("impute", SimpleImputer(strategy="most_frequent")),
                           ("onehot", OneHotEncoder(handle_unknown="ignore", drop="first"))]), CATEGORICAL),
     ])

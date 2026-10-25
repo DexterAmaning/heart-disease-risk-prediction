@@ -24,7 +24,7 @@ The Brier score for predicting the 45.9% prevalence for everyone is 0.248. The s
 | Threshold 0.5 | 0.792 | 0.886 | 0.855 | 0.834 |
 | Threshold set in training folds for 90% sensitivity | **0.896** | 0.704 | 0.720 | **0.889** |
 
-The sensitivity-targeted threshold is chosen from inner cross-validation on each training fold only, and it achieved its 90% target on unseen patients.
+The sensitivity-targeted threshold is chosen from inner cross-validation on each training fold only. On unseen patients it reached a mean sensitivity of 0.896 against the 90% target, slightly below it, as expected when a threshold tuned on training data is applied to new patients.
 
 **Calibration:** logistic regression's predicted risks closely track observed disease rates. The random forest is less calibrated at the extremes.
 
@@ -35,7 +35,7 @@ The sensitivity-targeted threshold is chosen from inner cross-validation on each
 ## Methods
 
 - **Data:** official UCI `processed.cleveland.data`; outcome = any major vessel > 50% narrowed (`num > 0`).
-- **Preprocessing (scikit-learn `Pipeline`, fit per fold):** median imputation and scaling for continuous variables; mode imputation and one-hot encoding for chest-pain type, resting ECG, ST slope and thallium result.
+- **Preprocessing (scikit-learn `Pipeline`, fit per fold):** median imputation and scaling for continuous variables; mode imputation for sex, fasting blood sugar and exercise angina; mode imputation and one-hot encoding for chest-pain type, resting ECG, ST slope and thallium result.
 - **Validation:** repeated stratified CV with out-of-fold probabilities; percentile bootstrap CIs; calibration curve; Brier score.
 
 ## Limitations

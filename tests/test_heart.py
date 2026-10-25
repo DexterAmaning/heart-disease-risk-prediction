@@ -43,6 +43,14 @@ def test_pipeline_handles_missing_and_categories():
     assert np.isfinite(proba).all() and ((proba >= 0) & (proba <= 1)).all()
 
 
+def test_pipeline_handles_missing_binary():
+    df, y = _toy()
+    df.loc[0, "fbs"] = np.nan
+    model = make_model(LogisticRegression(max_iter=1000)).fit(df[FEATURES], y)
+    proba = model.predict_proba(df[FEATURES])[:, 1]
+    assert np.isfinite(proba).all()
+
+
 def test_repeated_cv_shapes():
     df, y = _toy()
     res = repeated_cv(lambda: make_model(LogisticRegression(max_iter=1000)), df[FEATURES], y, n_repeats=2)

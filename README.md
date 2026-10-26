@@ -1,5 +1,7 @@
 # Coronary Artery Disease Risk Model (UCI Cleveland)
 
+[![CI](https://github.com/DexterAmaning/heart-disease-risk-prediction/actions/workflows/ci.yml/badge.svg)](https://github.com/DexterAmaning/heart-disease-risk-prediction/actions/workflows/ci.yml)
+
 An interpretable, **calibrated** logistic regression model for angiographic coronary artery disease in 303 patients referred for angiography. It's evaluated with repeated cross-validation, confidence intervals, a sensitivity-targeted operating point and calibration analysis, and compared with a random forest.
 
 Reproduced by [`notebooks/heart_disease_risk_model.ipynb`](notebooks/heart_disease_risk_model.ipynb).
@@ -30,7 +32,7 @@ The sensitivity-targeted threshold is chosen from inner cross-validation on each
 
 ![Calibration](reports/figures/calibration.png)
 
-**Adjusted odds ratios** (complete cases, n = 297): vessels coloured on fluoroscopy OR 3.43 per SD (95% CI 2.05–5.73); reversible thallium defect 4.03 (1.75–9.26) vs normal; flat ST slope 3.18 (1.25–8.04) vs upsloping; male sex 4.69 (1.66–13.26); resting BP 1.54 per SD (1.04–2.28). In this referral cohort, typical angina (0.12) and non-anginal pain (0.16) carry lower odds than asymptomatic presentation.
+**Adjusted odds ratios** (complete cases, n = 297): vessels coloured on fluoroscopy OR 3.43 per SD (95% CI 2.05–5.73); reversible thallium defect 4.03 (1.75–9.26) vs normal; flat ST slope 3.17 (1.25–8.04) vs upsloping; male sex 4.69 (1.66–13.26); resting BP 1.54 per SD (1.04–2.28). In this referral cohort, typical angina (0.12) and non-anginal pain (0.16) carry lower odds than asymptomatic presentation.
 
 ## Methods
 
@@ -56,6 +58,8 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/heart_disease_risk
 ```
 
 The UCI data (CC BY 4.0) is included in `data/raw/`, with provenance in [`data/README.md`](data/README.md). Tested with Python 3.13.
+
+On every push, GitHub Actions runs the tests with network access blocked, static checks (pyflakes, compilation) and a full notebook re-execution; see [`.github/workflows/ci.yml`](.github/workflows/ci.yml). The tests also check that every number in this README is a rounding of a value the notebook printed.
 
 ## Changes from the earlier version
 
